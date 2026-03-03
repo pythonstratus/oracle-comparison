@@ -175,6 +175,24 @@ public class AlsFunctionService {
 
 ---
 
+# Option 4: GraphQL
+
+We could also expose `GetRefDt` via a GraphQL endpoint on the ALS-SERVICE side. ENTITY-SERVICE would then query it using Spring's `HttpGraphQlClient`.
+
+## Why Consider It
+
+- **Single request, multiple fields** — If we ever need to call more than just `GetRefDt` from ALS (e.g., `getRefStatus`, `getRefConfig`), GraphQL lets us batch those into one request instead of multiple REST calls.
+- **No over-fetching** — The client asks for exactly what it needs.
+- **Strongly typed schema** — The `.graphqls` schema file acts as a contract between services.
+
+## When It's Overkill
+
+If we're only ever calling `GetRefDt` and nothing else, a simple REST endpoint is easier to set up and maintain. GraphQL adds schema definitions, resolvers, and a new dependency (`spring-boot-starter-graphql`) that may not be justified for a single function call.
+
+## Recommendation
+
+Start with REST (Option 2) for now. If our cross-schema queries grow in number or complexity, we can migrate to GraphQL at that point without major rework.
+
 **Which to choose?**
 
 If both schemas are on the same DB instance, the **grant + schema-qualified call** (Option 1 without a DB link) is the simplest. If you want architectural cleanliness and already have the service-to-service communication pattern in place (which you do with `EtlServiceClient`), **Option 2 (REST)** is the most consistent with your existing design. Option 3 is a good middle ground if standing up a new ALS-SERVICE feels like overkill.
