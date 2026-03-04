@@ -64,3 +64,31 @@ Action Items
 Next call to be scheduled as needed. Let me know if I missed anything.
 
 Thanks
+
+
+# Email to Matthew — Add ALS.LA to Golden Gate
+
+**To:** Matthew
+
+**Subject:** Request to Add ALS.LA to Golden Gate Replication (DEV & TEST)
+
+---
+
+Hi Matthew,
+
+We're working on decoupling ENTITY from the ALS schema and moving to the ALS legacy replica tables. We noticed that **ALS.LA** is currently missing from the Golden Gate replication — XE, LS, and LD are already there, but LA is not.
+
+Could you please add **ALS.LA** to the Golden Gate replication for both **DEV** and **TEST** environments?
+
+For reference, the tables we need in `als_legacy_replica`:
+
+| Table   | In Golden Gate? |
+|---------|-----------------|
+| ALS.XE  | Yes             |
+| ALS.LS  | Yes             |
+| ALS.LD  | Yes             |
+| ALS.LA  | **No — needs to be added** |
+
+Let me know if you need a ticket for this or if an email is sufficient. Also, Ranjita mentioned there's an access issue in TEST that may need your attention as well.
+
+Thanks!
